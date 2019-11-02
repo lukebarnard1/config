@@ -1,0 +1,21 @@
+
+Usage: pin [directory_name|help|here]
+
+   Add the current directory to the list of pins
+   $ pin here
+
+   Fuzzy search through pinned directories (requires fzf)
+   $ pin
+
+   Open first pinned substring-matching directory
+   $ pin search_query
+
+   Read this help message
+   $ pin help
+
+   Edit pin list
+   $ vim ~/.pin/ls
+
+
+
+

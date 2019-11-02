@@ -1,26 +1,5 @@
 #!/bin/sh
 
-pin () {
-	local firstArg=$1
-	local choice=""
-
-	if [[ $firstArg == "here" ]]; then
-		p=$(pwd)
-		echo ${p##$HOME} >> ~/.pin
-		cat ~/.pin | sort -u > ~/.pin^
-		mv ~/.pin^ ~/.pin
-	elif [[ -z $firstArg ]]; then
-		choice=$(cat ~/.pin | fzf)
-	else
-		choice=$(grep -m1 -e "$firstArg" ~/.pin)
-	fi
-
-	if [[ -n $choice ]]; then
-		cd $HOME$choice
-		echo $HOME$choice > ~/.pin_last
-	fi
-}
-
 gcf () {
 	local choice=""
 
@@ -76,5 +55,6 @@ if [[ $keys == "0" ]]; then
   ssh-add
 fi
 
-# go to last visited pin directory
-cd $(cat ~/.pin_last)
+export CONFIG_DEV_DIR=$HOME/.config/dev
+
+source $CONFIG_DEV_DIR/pin/pin.sh
