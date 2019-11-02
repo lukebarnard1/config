@@ -18,7 +18,7 @@ vimo () {
 
 # aliases
 alias gs='git status -s'
-alias gst='git status -s'
+alias gst='git status'
 alias gl='git log'
 alias gac='git commit -a -m${0} -m{1}'
 alias gch='git checkout'
