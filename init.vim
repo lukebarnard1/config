@@ -63,4 +63,7 @@ let g:ale_fix_on_save = 1
 " hooks
 
 autocmd BufWritePre *.* :%s/\s\+$//e
-autocmd BufReadPost *.md :set fo+=a tw=60
+autocmd BufReadPost *.md :set tw=60 spell spelllang=en_us
+
+" disable paste mode when leaving insert
+autocmd InsertLeave * set nopaste
