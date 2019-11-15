@@ -5,6 +5,8 @@ Plug 'junegunn/seoul256.vim'
 Plug 'itchyny/lightline.vim'
 Plug 'itchyny/vim-gitbranch'
 Plug 'spacewander/vim-gitgutter'
+Plug 'airblade/vim-gitgutter'
+Plug 'python/black'
 Plug 'w0rp/ale'
 Plug 'pangloss/vim-javascript'
 Plug 'mxw/vim-jsx'
@@ -17,6 +19,26 @@ call plug#end()
 "  fzf
 nmap <c-p> :Files<CR>
 nmap <c-l> :Lines<CR>
+nmap <c-f> :Tags<CR>
+
+"  quotes
+
+vmap ' c'<c-R>"'<Esc>F'
+vmap , c"<c-R>""<Esc>F"
+vmap ( c(<c-R>")<Esc>F(
+vmap ) c(<c-R>")<Esc>F(
+vmap [ c[<c-R>"]<Esc>F[
+vmap ] c[<c-R>"]<Esc>F[
+vmap .{ c{<c-R>"}<Esc>F{
+vmap .} c{<c-R>"}<Esc>F{
+vmap @ "pdvh"pp
+
+"  expand js blocks
+vmap + :ma 1<CR>:s/{/{\r/g<CR>:s/}/\r}/g<CR>:ma 2<CR>v`1==v`2:%s/\s\+$//e<CR>:noh<CR>
+
+"
+"  insert js console
+vmap .log cconsole.info({  thing: ",})v%=jw
 
 "  disable
 map <F1> <Esc>
@@ -51,17 +73,22 @@ set shiftwidth=2
 
 set guitablabel=%F
 
+" tags
+"
+set tags=.git/tags;~
+
 " lint
+"
 let g:ale_linters = {
 \   'javascript': ['standard'],
 \}
 let g:ale_fixers = {'javascript': ['standard']}
-
 let g:ale_lint_on_save = 1
 let g:ale_fix_on_save = 1
 
 " hooks
 
+autocmd! BufWritePost init.vim source %
 autocmd BufWritePre *.* :%s/\s\+$//e
 autocmd BufReadPost *.md :set tw=60 spell spelllang=en_us
 
