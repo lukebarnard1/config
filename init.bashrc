@@ -75,18 +75,59 @@ alias ggrp='git grep'
 alias dc='docker-compose'
 alias dk='docker'
 
+width() {
+  stty size|if read r c
+  then
+    echo $c
+  fi
+}
+
+frame() {
+  N=${2:-1}
+
+  while [[ $N -gt 0 ]]
+  do
+    N=$((N - 1))
+    case "$1" in
+      tl)
+        printf '\xe2\x94\x8c'
+        ;;
+      tr)
+        printf '\xe2\x94\x8c'
+        ;;
+      bl)
+        printf '\xe2\x94\x94'
+        ;;
+      br)
+        printf '\xe2\x94\x98'
+        ;;
+      v)
+        printf '\xe2\x94\x82'
+        ;;
+      h)
+        printf '\xe2\x94\x80'
+        ;;
+      *)
+        ;;
+    esac
+  done
+}
+
 git_branch() {
   if git status &>/dev/null; then
-    echo "| branch: "$(colored 31)$(git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/\1/')$(unformat)
+    frame v
+    echo " branch: "$(colored 31)$(git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/\1/')$(unformat)
     printf " "
   fi
 }
 
 current_commit() {
   if git status &>/dev/null; then
-    echo "| commit: "$(git log -n1 --pretty=format:%s 2> /dev/null)
+    frame v
+    echo " commit: "$(git log -n1 --pretty=format:%s 2> /dev/null)
     printf " "
-    echo "| hash:   "$(git log -n1 --pretty=format:%H 2> /dev/null)
+    frame v
+    echo " hash:   "$(git log -n1 --pretty=format:%H 2> /dev/null)
     printf " "
   fi
 }
@@ -99,8 +140,9 @@ unformat() {
   printf "\033[00m"
 }
 
+
 # set prompt
-PS1="\n  __________________________________________________________________\n |\n \$(current_commit)\$(git_branch)| dir:    \$(colored 34)\w\$(unformat)  \n |__________________________________________________________________\n\n "
+PS1="\n \$(frame tl)\$(frame h \$((\$(width) - 4)))\n \$(current_commit)\$(git_branch)\$(frame v) dir:    \$(colored 34)\w\$(unformat)  \n \$(frame bl)\$(frame h \$((\$(width) - 4)))\n\n  - "
 
 fix_history () {
   history -a
