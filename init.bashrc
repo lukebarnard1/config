@@ -145,14 +145,16 @@ unformat() {
 PS1="\n \$(frame tl)\$(frame h \$((\$(width) - 4)))\n \$(current_commit)\$(git_branch)\$(frame v) dir:    \$(colored 34)\w\$(unformat)  \n \$(frame bl)\$(frame h \$((\$(width) - 4)))\n\n  - "
 
 fix_history () {
+  export HISTFILE=~/.bash_history
   history -a
-  history -n
+  history -c
+  history -r
+  #history -n
 }
 
 # fix history
-
-HISTSIZE=5000
-HISTFILESIZE=10000
+export HISTSIZE=5000
+export HISTFILESIZE=10000
 
 export PROMPT_COMMAND="fix_history; $PROMPT_COMMAND"
 
