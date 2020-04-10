@@ -36,3 +36,23 @@ pin () {
     echo $HOME$choice > $PIN_DIR/last
   fi
 }
+
+gt () {
+  if [[ $(fzf --version &>/dev/null;echo $?) -ne 0  ]]; then
+    echo 'To use fuzzy search, please install fzf:'
+    echo ' git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf'
+    echo ' ~/.fzf/install'
+    return 1
+  fi;
+
+  local prev=`pwd`
+
+  cd
+  `__fzf_cd__`
+
+  if [[ $(echo $?) -eq 0 ]]; then
+    pwd > $PIN_DIR/last
+  else
+    cd $prev
+  fi
+}

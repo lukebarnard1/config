@@ -116,7 +116,7 @@ frame() {
 git_branch() {
   if git status &>/dev/null; then
     frame v
-    echo " branch: "$(colored 31)$(git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/\1/')$(unformat)
+    echo " branch: "$(colored 33)$(git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/\1/')$(unformat)
     printf " "
   fi
 }
@@ -133,7 +133,7 @@ current_commit() {
 }
 
 colored() {
-  printf "\033[01;"$1"m"
+  printf "\033["$1"m"
 }
 
 unformat() {
@@ -142,7 +142,7 @@ unformat() {
 
 
 # set prompt
-PS1="\n \$(frame tl)\$(frame h \$((\$(width) - 4)))\n \$(current_commit)\$(git_branch)\$(frame v) dir:    \$(colored 34)\w\$(unformat)  \n \$(frame bl)\$(frame h \$((\$(width) - 4)))\n\n  - "
+PS1="\n \$(frame tl)\$(frame h \$((\$(width) - 4)))\n \$(current_commit)\$(git_branch)\$(frame v) dir:    \$(colored 32)\w\$(unformat)  \n \$(frame bl)\$(frame h \$((\$(width) - 4)))\n\n  - "
 
 fix_history () {
   export HISTFILE=~/.bash_history

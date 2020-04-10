@@ -24,19 +24,24 @@ nmap <c-f> :Tags<CR>
 "  quotes
 
 vmap ' c'<c-R>"'<Esc>F'
-vmap , c"<c-R>""<Esc>F"
 vmap ( c(<c-R>")<Esc>F(
 vmap ) c(<c-R>")<Esc>F(
 vmap [ c[<c-R>"]<Esc>F[
 vmap ] c[<c-R>"]<Esc>F[
 vmap .{ c{<c-R>"}<Esc>F{
 vmap .} c{<c-R>"}<Esc>F{
+vmap ." c"<c-R>""<Esc>F"
 vmap @ "pdvh"pp
+
+vmap ./ dO/*<CR>*/<Esc>P
+vmap .? dO/*<CR>*/<Esc>P
 
 "  expand js blocks
 vmap + :ma 1<CR>:s/{/{\r/g<CR>:s/}/\r}/g<CR>:ma 2<CR>v`1==v`2:%s/\s\+$//e<CR>:noh<CR>
 
-"
+"  expand selected json
+vmap ..json :'<,'>!jq .<CR>
+
 "  insert js console
 vmap .log cconsole.info({  thing: ",})v%=jw
 
