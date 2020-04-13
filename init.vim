@@ -100,3 +100,8 @@ autocmd BufReadPost *.md :set tw=60 spell spelllang=en_us
 
 " disable paste mode when leaving insert
 autocmd InsertLeave * set nopaste
+
+" bash env
+let $BASH_ENV = $CONFIG_DEV_DIR . "/vim/bash_env.sh"
+
+set shell=/bin/bash
