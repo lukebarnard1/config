@@ -165,9 +165,19 @@ export FZF_DEFAULT_COMMAND='fd --type f'
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 export FZF_ALT_C_COMMAND="fd --type d"
 
-# add ssh key
-keychain --quiet
+command_exists() {
+  command -V $1 &>/dev/null
+}
 
+
+# ubuntu keychain?
+if command_exists keychain; then
+  keychain --quiet
+fi
+
+# macos
+
+# add ssh key
 keys=$(ssh-add -l | grep id_rsa | wc -l)
 if [[ $keys == "0" ]]; then
   ssh-add
