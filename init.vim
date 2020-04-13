@@ -7,9 +7,10 @@ Plug 'itchyny/vim-gitbranch'
 Plug 'spacewander/vim-gitgutter'
 Plug 'airblade/vim-gitgutter'
 Plug 'python/black'
-Plug 'w0rp/ale'
+Plug 'dense-analysis/ale'
 Plug 'pangloss/vim-javascript'
 Plug 'mxw/vim-jsx'
+Plug 'jxnblk/vim-mdx-js'
 Plug 'leafgarland/typescript-vim'
 Plug 'styled-components/vim-styled-components', { 'branch': 'main' }
 call plug#end()
