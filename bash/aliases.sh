@@ -17,6 +17,8 @@ alias gdc='git diff --cached'
 alias gpoh='git push -u origin HEAD'
 alias gstnd='git log --author=Luke'
 alias ggrp='git grep'
+alias gdnr='git diff --name-only --relative'
+alias oops='gdnr HEAD^ | vimo'
 
 alias dc='docker-compose'
 alias dk='docker'
