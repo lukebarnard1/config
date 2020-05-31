@@ -13,7 +13,21 @@ Plug 'mxw/vim-jsx'
 Plug 'jxnblk/vim-mdx-js'
 Plug 'leafgarland/typescript-vim'
 Plug 'styled-components/vim-styled-components', { 'branch': 'main' }
+Plug 'mileszs/ack.vim'
 call plug#end()
+
+" leader (\)
+let mapleader = ","
+
+" ag
+let g:ackprg = 'ag --nogroup --nocolor --column'
+
+" holding shift is slow
+nnoremap ; :
+nnoremap ' "
+
+" fast escape
+inoremap jj <ESC>
 
 " bindings
 
@@ -21,6 +35,7 @@ call plug#end()
 nmap <c-p> :Files<CR>
 nmap <c-l> :Lines<CR>
 nmap <c-f> :Tags<CR>
+nmap <Leader>a :Ag<CR>
 
 "  quotes
 
@@ -29,13 +44,15 @@ vmap ( c(<c-R>")<Esc>F(
 vmap ) c(<c-R>")<Esc>F(
 vmap [ c[<c-R>"]<Esc>F[
 vmap ] c[<c-R>"]<Esc>F[
-vmap .{ c{<c-R>"}<Esc>F{
-vmap .} c{<c-R>"}<Esc>F{
-vmap ." c"<c-R>""<Esc>F"
+vmap <Leader>{ c{<c-R>"}<Esc>F{
+vmap <Leader>} c{<c-R>"}<Esc>F{
+vmap <Leader>" c"<c-R>""<Esc>F"
 vmap @ "pdvh"pp
 
-vmap ./ dO/*<CR>*/<Esc>P
-vmap .? dO/*<CR>*/<Esc>P
+vmap <Leader>/ dO/*<CR>*/<Esc>P
+vmap <Leader>? dO/*<CR>*/<Esc>P
+
+xnoremap p pgvy
 
 "  expand js blocks
 vmap + :ma 1<CR>:s/{/{\r/g<CR>:s/}/\r}/g<CR>:ma 2<CR>v`1==v`2:%s/\s\+$//e<CR>:noh<CR>
