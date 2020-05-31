@@ -101,20 +101,18 @@ frame() {
 
 git_branch() {
   if git status &>/dev/null; then
-    frame v
-    echo " branch: "$(colored 33)$(git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/\1/')$(unformat)
-    printf " "
+    echo $(colored '38;5;200')$(git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/\1/')$(unformat)
   fi
 }
 
+current_hash() {
+  if git status &>/dev/null; then
+    echo $(git log -n1 --abbrev=8 --pretty=format:%h 2> /dev/null)
+  fi
+}
 current_commit() {
   if git status &>/dev/null; then
-    frame v
-    echo " commit: "$(git log -n1 --pretty=format:%s 2> /dev/null)
-    printf " "
-    frame v
-    echo " hash:   "$(git log -n1 --pretty=format:%H 2> /dev/null)
-    printf " "
+    echo $(git log -n1 --pretty=format:%s 2> /dev/null)
   fi
 }
 
@@ -128,7 +126,9 @@ unformat() {
 
 
 # set prompt
-PS1="\n \$(frame tl)\$(frame h \$((\$(width) - 4)))\n \$(current_commit)\$(git_branch)\$(frame v) dir:    \$(colored 32)\w\$(unformat)  \n \$(frame bl)\$(frame h \$((\$(width) - 4)))\n\n  - "
+PS1="\n \$(frame tl)\$(frame h \$((\$(width) - 4)))\n \$(frame v) commit: \$(current_commit)\n \$(frame v) hash:   \$(current_hash)\n \$(frame v) branch: \$(git_branch)\n \$(frame v) dir:    \$(colored 32)\w\$(unformat)  \n \$(frame bl)\$(frame h \$((\$(width) - 4)))\n\n  vi -  "
+
+PS1="\n\$(colored 32)\w\$(unformat) \$(git_branch) \$(current_hash) \n - "
 
 fix_history () {
   export HISTFILE=~/.bash_history
