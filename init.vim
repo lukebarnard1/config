@@ -29,7 +29,13 @@ nnoremap ' "
 " fast escape
 inoremap jj <ESC>
 
+" move tabs
+nmap H gT
+nmap L gt
+
 " bindings
+
+nnoremap Q :q<CR>
 
 "  fzf
 nmap <c-p> :Files<CR>
@@ -37,16 +43,27 @@ nmap <c-l> :Lines<CR>
 nmap <c-f> :Tags<CR>
 nmap <Leader>a :Ag<CR>
 
+imap <c-x><c-f> <plug>(fzf-complete-path)
+
 "  quotes
 
-vmap ' c'<c-R>"'<Esc>F'
-vmap ( c(<c-R>")<Esc>F(
-vmap ) c(<c-R>")<Esc>F(
-vmap [ c[<c-R>"]<Esc>F[
-vmap ] c[<c-R>"]<Esc>F[
+nmap <Leader>w viw<Leader>
+nmap <Leader>W viW<Leader>
+
+vmap <Leader>( c(<c-R>")<Esc>F(
+vmap <Leader>) c(<c-R>")<Esc>F(
+vmap <Leader>[ c[<c-R>"]<Esc>F[
+vmap <Leader>] c[<c-R>"]<Esc>F[
 vmap <Leader>{ c{<c-R>"}<Esc>F{
 vmap <Leader>} c{<c-R>"}<Esc>F{
+vmap <Leader>' c'<c-R>"'<Esc>F'
 vmap <Leader>" c"<c-R>""<Esc>F"
+vmap <Leader>` c`<c-R>"`<Esc>F`
+
+imap <Leader>( ()<Esc>i
+imap <Leader>{ {}<Esc>i
+imap <Leader>[ []<Esc>i
+
 vmap @ "pdvh"pp
 
 vmap <Leader>/ dO/*<CR>*/<Esc>P
@@ -61,7 +78,10 @@ vmap + :ma 1<CR>:s/{/{\r/g<CR>:s/}/\r}/g<CR>:ma 2<CR>v`1==v`2:%s/\s\+$//e<CR>:no
 vmap ..json :'<,'>!jq .<CR>
 
 "  insert js console
-vmap .log cconsole.info({  thing: ",})v%=jw
+vmap <Leader>log cconsole.info({  thing: ",})v%=jw
+
+" edit this file
+nmap <Leader>conf :tabe $CONFIG_DEV_DIR/init.vim<CR>
 
 "  disable
 map <F1> <Esc>
@@ -104,10 +124,14 @@ set tags=.git/tags;~
 "
 let g:ale_linters = {
 \   'javascript': ['standard'],
+\   'python': ['flake8']
 \}
-let g:ale_fixers = {'javascript': ['standard']}
+let g:ale_fixers = {
+\   'javascript': ['standard'],
+\   'python': ['black']
+\}
 let g:ale_fix_on_save = 1
-
+"let g:ale_open_list = 1
 " hooks
 
 autocmd! BufWritePost init.vim source %

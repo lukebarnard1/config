@@ -34,6 +34,10 @@ $name.propTypes = { }
 
 export default $name" > $name.js
 
+  cp $CONFIG_DEV_DIR/template.stories.js $name.stories.js
+
+  sed -i s/Component/$name/g $name.stories.js
+
   echo "export { default } from './$name'" > index.js
 
   touch styles.js
@@ -46,6 +50,16 @@ gcf () {
 
 	if [[ -n $choice ]]; then
 		git checkout $choice
+	fi
+}
+
+vimd () {
+	local choice=""
+
+	choice=$(gdnr | fzf --ansi --preview='git diff --color {}')
+
+	if [[ -n $choice ]]; then
+		vim $choice
 	fi
 }
 

@@ -19,8 +19,11 @@ alias gstnd='git log --author=Luke'
 alias ggrp='git grep'
 alias gdnr='git diff --name-only --relative'
 alias oops='gdnr HEAD^ | vimo'
+alias gtrg='git commit -m"Trigger CI" --allow-empty'
 
 alias dc='docker-compose'
 alias dk='docker'
 
 alias dateu='date -u +%Y-%m-%dT%H:%M:%SZ'
+
+alias glp="git log --date=short --pretty='%h %cd :%<|(45) %an %s'"
