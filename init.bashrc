@@ -34,6 +34,10 @@ $name.propTypes = { }
 
 export default $name" > $name.js
 
+  cp $CONFIG_DEV_DIR/template.stories.js $name.stories.js
+
+  sed -i s/Component/$name/g $name.stories.js
+
   echo "export { default } from './$name'" > index.js
 
   touch styles.js
@@ -46,6 +50,16 @@ gcf () {
 
 	if [[ -n $choice ]]; then
 		git checkout $choice
+	fi
+}
+
+vimd () {
+	local choice=""
+
+	choice=$(gdnr | fzf --ansi --preview='git diff --color {}')
+
+	if [[ -n $choice ]]; then
+		vim $choice
 	fi
 }
 
@@ -144,11 +158,6 @@ export HISTFILESIZE=10000
 
 export PROMPT_COMMAND="fix_history; $PROMPT_COMMAND"
 
-# fzf
-export FZF_DEFAULT_COMMAND='fd --type f'
-export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
-export FZF_ALT_C_COMMAND="fd --type d"
-
 command_exists() {
   command -V $1 &>/dev/null
 }
@@ -168,3 +177,18 @@ if [[ $keys == "0" ]]; then
 fi
 
 source $CONFIG_DEV_DIR/pin/pin.sh
+
+# installed stuff #####################################
+
+# fzf
+[ -f ~/.fzf.bash ] && source ~/.fzf.bash
+
+export FZF_DEFAULT_COMMAND='fd --type f'
+export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
+export FZF_ALT_C_COMMAND="fd --type d"
+
+# nvm
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
