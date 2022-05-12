@@ -4,15 +4,17 @@ Plug 'junegunn/fzf.vim'
 Plug 'junegunn/seoul256.vim'
 Plug 'itchyny/lightline.vim'
 Plug 'itchyny/vim-gitbranch'
-Plug 'spacewander/vim-gitgutter'
 Plug 'airblade/vim-gitgutter'
 Plug 'python/black'
 Plug 'dense-analysis/ale'
-Plug 'pangloss/vim-javascript'
 Plug 'mxw/vim-jsx'
 Plug 'jxnblk/vim-mdx-js'
+Plug 'pangloss/vim-javascript'
 Plug 'leafgarland/typescript-vim'
+Plug 'peitalin/vim-jsx-typescript'
 Plug 'styled-components/vim-styled-components', { 'branch': 'main' }
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
+
 Plug 'mileszs/ack.vim'
 call plug#end()
 
@@ -22,9 +24,16 @@ let mapleader = ","
 " ag
 let g:ackprg = 'ag --nogroup --nocolor --column'
 
+" coc
+"  tab to complete, shift-tab to reverse
+inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
+inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+"  enter to confirm
+inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+
 " holding shift is slow
-nnoremap ; :
 nnoremap ' "
+nnoremap <Leader>s :w<CR>
 
 " fast escape
 inoremap jj <ESC>
@@ -42,8 +51,12 @@ nmap <c-p> :Files<CR>
 nmap <c-l> :Lines<CR>
 nmap <c-f> :Tags<CR>
 nmap <Leader>a :Ag<CR>
+nmap <Leader>l :Lines<CR>
 
 imap <c-x><c-f> <plug>(fzf-complete-path)
+let g:fzf_layout = { 'down': '40%' }
+
+nmap <Leader>d :noh<CR>
 
 "  quotes
 
@@ -69,6 +82,8 @@ vmap @ "pdvh"pp
 vmap <Leader>/ dO/*<CR>*/<Esc>P
 vmap <Leader>? dO/*<CR>*/<Esc>P
 
+nmap <Leader>s :w<CR>
+
 xnoremap p pgvy
 
 "  expand js blocks
@@ -92,7 +107,7 @@ imap <F1> <Esc>
 colo seoul256
 colo seoul256-light
 
-set background=dark
+set background=light
 
 " display settings
 
@@ -123,11 +138,15 @@ set tags=.git/tags;~
 " lint
 "
 let g:ale_linters = {
-\   'javascript': ['standard'],
+\   'javascript': ['eslint'],
+\   'typescript': ['eslint'],
+\   'typescriptreact': ['eslint'],
 \   'python': ['flake8']
 \}
 let g:ale_fixers = {
-\   'javascript': ['standard'],
+\   'javascript': ['eslint'],
+\   'typescript': ['eslint'],
+\   'typescriptreact': ['eslint'],
 \   'python': ['black']
 \}
 let g:ale_fix_on_save = 1
@@ -136,10 +155,25 @@ let g:ale_fix_on_save = 1
 
 autocmd! BufWritePost init.vim source %
 autocmd BufWritePre *.* :%s/\s\+$//e
-autocmd BufReadPost *.md :set tw=60 spell spelllang=en_us
+autocmd BufReadPost *.md :set tw=80 spell spelllang=en_us
 
 " disable paste mode when leaving insert
 autocmd InsertLeave * set nopaste
+
+" vim-js-file-import
+let g:js_file_import_from_root = 1
+let g:js_file_import_root = getcwd().'/src'
+let g:js_file_import_root_alias = 'src/'
+let g:js_file_import_omit_semicolon = 1
+let g:js_file_import_use_fzf = 1
+let g:js_file_import_strip_file_extension = 1
+
+" vim-jsx-typescript
+autocmd BufNewFile,BufRead *.tsx,*.jsx set filetype=typescriptreact
+
+
+" gutentags
+let g:gutentags_ctags_tagfile = '.git/tags'
 
 " bash env
 let $BASH_ENV = $CONFIG_DEV_DIR . "/vim/bash_env.sh"
