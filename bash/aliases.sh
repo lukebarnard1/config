@@ -27,3 +27,5 @@ alias dk='docker'
 alias dateu='date -u +%Y-%m-%dT%H:%M:%SZ'
 
 alias glp="git log --date=short --pretty='%h %cd :%<|(45) %an %s'"
+
+alias conf="vim $CONFIG_DEV_DIR"

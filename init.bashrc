@@ -162,11 +162,28 @@ command_exists() {
   command -V $1 &>/dev/null
 }
 
+# required to make sure pressing "v" in readline will open vim
+export VISUAL=vim
+# vim is the default editor!
+export EDITOR=vim
+
+# make caps key = escape key
+# TODO: move to ~/.xinit
+DISPLAY=:0 setxkbmap -option caps:escape
 
 # ubuntu keychain?
 if command_exists keychain; then
   keychain --quiet
 fi
+
+newext() {
+  local old_ext=$1
+  local new_ext=$2
+  for file in *.$old_ext
+  do
+      mv -v "$file" "${file%.$old_ext}.$new_ext"
+  done;
+}
 
 # macos
 
