@@ -86,6 +86,15 @@ nmap <Leader>s :w<CR>
 
 xnoremap p pgvy
 
+" find replace
+" after selection and replace
+nmap <Leader>/ :%s/<c-R>//<c-R>./g
+
+" scrolling
+"
+:map <ScrollWheelUp> k0g^
+:map <ScrollWheelDown> j0g^
+
 "  expand js blocks
 vmap + :ma 1<CR>:s/{/{\r/g<CR>:s/}/\r}/g<CR>:ma 2<CR>v`1==v`2:%s/\s\+$//e<CR>:noh<CR>
 
@@ -94,6 +103,13 @@ vmap ..json :'<,'>!jq .<CR>
 
 "  insert js console
 vmap <Leader>log cconsole.info({  thing: ",})v%=jw
+
+" CoC
+"
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gy <Plug>(coc-type-definition)
+nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent> gr <Plug>(coc-references)
 
 " edit this file
 nmap <Leader>conf :tabe $CONFIG_DEV_DIR/init.vim<CR>
@@ -140,12 +156,14 @@ set tags=.git/tags;~
 let g:ale_linters = {
 \   'javascript': ['eslint'],
 \   'typescript': ['eslint'],
+\   'mdx': ['eslint'],
 \   'typescriptreact': ['eslint'],
 \   'python': ['flake8']
 \}
 let g:ale_fixers = {
 \   'javascript': ['eslint'],
 \   'typescript': ['eslint'],
+\   'mdx': ['eslint'],
 \   'typescriptreact': ['eslint'],
 \   'python': ['black']
 \}
@@ -155,7 +173,7 @@ let g:ale_fix_on_save = 1
 
 autocmd! BufWritePost init.vim source %
 autocmd BufWritePre *.* :%s/\s\+$//e
-autocmd BufReadPost *.md :set tw=80 spell spelllang=en_us
+autocmd FileType Markdown setlocal tw=80 spell spelllang=en_us
 
 " disable paste mode when leaving insert
 autocmd InsertLeave * set nopaste
