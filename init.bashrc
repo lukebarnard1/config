@@ -138,7 +138,6 @@ unformat() {
   printf "\033[00m"
 }
 
-
 # set prompt
 PS1="\n \$(frame tl)\$(frame h \$((\$(width) - 4)))\n \$(frame v) commit: \$(current_commit)\n \$(frame v) hash:   \$(current_hash)\n \$(frame v) branch: \$(git_branch)\n \$(frame v) dir:    \$(colored 32)\w\$(unformat)  \n \$(frame bl)\$(frame h \$((\$(width) - 4)))\n\n  vi -  "
 
@@ -166,10 +165,6 @@ command_exists() {
 export VISUAL=vim
 # vim is the default editor!
 export EDITOR=vim
-
-# make caps key = escape key
-# TODO: move to ~/.xinit
-DISPLAY=:0 setxkbmap -option caps:escape
 
 # ubuntu keychain?
 if command_exists keychain; then
@@ -204,8 +199,5 @@ export FZF_DEFAULT_COMMAND='fd --type f'
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 export FZF_ALT_C_COMMAND="fd --type d"
 
-# nvm
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
-
+export BASH_SILENCE_DEPRECATION_WARNING=1
+clear
