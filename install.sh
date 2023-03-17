@@ -3,6 +3,8 @@
 
 script_dir=$(dirname "$(readlink -f "$0")")
 
+rm ~/.bashrc
+
 ln -s $script_dir/config/dev ~/.config/dev
 ln -s $script_dir/config/dev/bash/init.bashrc ~/.bashrc
 ln -s $script_dir/config/nvim ~/.config/nvim
