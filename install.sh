@@ -1,17 +1,9 @@
 #!/bin/bash
 
-cd ~/.config
-
-mkdir dev
-git clone git@github.com:lukebarnard1/config.git dev
-
-ln -s dev/init.bash ~/.bashrc
-
-mkdir nvim
-ln -s dev/init.vim nvim/init.vim
-
 # Install neovim
 #
+curl -LO https://github.com/neovim/neovim/releases/latest/download/nvim.appimage
+chmod u+x nvim.appimage
 ./nvim.appimage --appimage-extract
 ./squashfs-root/AppRun --version
 sudo mv squashfs-root /
