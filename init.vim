@@ -165,7 +165,8 @@ let g:ale_fixers = {
 \   'typescript': ['eslint'],
 \   'mdx': ['eslint'],
 \   'typescriptreact': ['eslint'],
-\   'python': ['black']
+\   'python': ['black'],
+\   'rust': ['rustfmt']
 \}
 let g:ale_fix_on_save = 1
 "let g:ale_open_list = 1
