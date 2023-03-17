@@ -3,10 +3,9 @@
 
 script_dir=$(dirname "$(readlink -f "$0")")
 
-pushd $script_dir
-ln -s config/dev ~/.config/dev
-ln -s config/dev/bash/init.bashrc ~/.bashrc
-ln -s config/nvim ~/.config/nvim
+ln -s $script_dir/config/dev ~/.config/dev
+ln -s $script_dir/config/dev/bash/init.bashrc ~/.bashrc
+ln -s $script_dir/config/nvim ~/.config/nvim
 
 # Install neovim
 #
@@ -21,4 +20,3 @@ sudo ln -s /squashfs-root/AppRun /usr/bin/nvim
 curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim \
   --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 
-popd
