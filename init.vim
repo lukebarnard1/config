@@ -123,7 +123,7 @@ imap <F1> <Esc>
 colo seoul256
 colo seoul256-light
 
-set background=light
+set background=dark
 
 " display settings
 
