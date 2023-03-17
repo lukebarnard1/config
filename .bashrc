@@ -1,1 +1,1 @@
-init.bashrc
+.config/dev/bash/init.bashrc
