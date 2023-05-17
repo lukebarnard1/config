@@ -7,7 +7,7 @@ alias gan='git add -N .'
 alias gc='git commit -vp'
 alias gap='git add -p'
 alias gch='git checkout'
-alias gchm='git checkout master'
+alias gchm='git checkout main'
 alias gchb='git checkout -b'
 alias gpl='git pull'
 alias gd='git diff'
@@ -23,6 +23,10 @@ alias gtrg='git commit -m"Trigger CI" --allow-empty'
 
 alias dc='docker-compose'
 alias dk='docker'
+
+alias nrb='npm run build'
+alias nrs='npm run start'
+alias ni='npm install'
 
 alias dateu='date -u +%Y-%m-%dT%H:%M:%SZ'
 

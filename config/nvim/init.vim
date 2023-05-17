@@ -112,7 +112,7 @@ nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-references)
 
 " edit this file
-nmap <Leader>conf :tabe $CONFIG_DEV_DIR/init.vim<CR>
+nmap <Leader>conf :tabe $CONFIG_DEV_DIR/../nvim/init.vim<CR>
 
 "  disable
 map <F1> <Esc>
@@ -155,14 +155,14 @@ set tags=.git/tags;~
 "
 let g:ale_linters = {
 \   'javascript': ['eslint'],
-\   'typescript': ['eslint'],
+\   'typescript': ['eslint', 'prettier'],
 \   'mdx': ['eslint'],
 \   'typescriptreact': ['eslint'],
 \   'python': ['flake8']
 \}
 let g:ale_fixers = {
 \   'javascript': ['eslint'],
-\   'typescript': ['eslint'],
+\   'typescript': ['eslint', 'prettier'],
 \   'mdx': ['eslint'],
 \   'typescriptreact': ['eslint'],
 \   'python': ['black'],
